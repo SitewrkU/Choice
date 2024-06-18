@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choice</title>
+</head>
+<body>
+    <h1>ЩО ТИ ВИБЕРЕШ?</h1>
+    <div class="RarityShower" id="rarityS" title="Рідкість вибору: Common"></div>
+    <button onclick="resetAllOptionsToTrue()" class="ResetEnable"><svg width="20px" height="20px" viewBox="0 0 0.5 0.5" xmlns="http://www.w3.org/2000/svg"><path d="M0.425 0.225a0.025 0.025 0 0 1 -0.025 -0.025c0 -0.014 -0.011 -0.025 -0.025 -0.025H0.135l0.032 0.032a0.025 0.025 0 1 1 -0.035 0.035l-0.075 -0.075a0.025 0.025 0 0 1 0 -0.035l0.075 -0.075a0.025 0.025 0 0 1 0.035 0 0.025 0.025 0 0 1 0 0.035L0.135 0.125H0.375c0.041 0 0.075 0.034 0.075 0.075a0.025 0.025 0 0 1 -0.025 0.025M0.075 0.275a0.025 0.025 0 0 1 0.025 0.025c0 0.014 0.011 0.025 0.025 0.025h0.24l-0.032 -0.032a0.025 0.025 0 1 1 0.035 -0.035l0.075 0.075a0.025 0.025 0 0 1 0 0.035l-0.075 0.075a0.025 0.025 0 1 1 -0.035 -0.035L0.365 0.375H0.125c-0.041 0 -0.075 -0.034 -0.075 -0.075a0.025 0.025 0 0 1 0.025 -0.025" fill="#0000000"/></svg></button>
+    <div class="main">
+        <div class="choice1" id="ch1"><p id="firstDiv"></p></div>
+        <div class="jkline"><p class="or">ЧИ</p></div>
+        <div class="choice2" id="ch2"><p id="secondDiv"></p></div>
+    </div>
+    <script>
+        var RarityDiv = document.getElementById('rarityS');
+        var ch1 = document.getElementById('ch1');
+        var ch2 = document.getElementById('ch2');
+        var isEnabled1 = true;
+        var isEnabled2 = true;
+
+
+        //    {foption: 'Вибір1', soption: 'Вибір2', rarity: 'Rare', useble: "True"}
+        var options = [
+            {foption: 'Нагодувати сотню голодних котят', soption: 'Получити PS5 з GTA VI', rarity: 'Rare', useble: "True"},
+            {foption: 'Грати в хом\'ка кожну годину, кожен день, весь вільний час клацати, щоб потім можливо получити ЦІЛИЙ бакс', soption: 'Піти на завод і працювати 24/7, і получати стабільну зарплату', rarity: 'Epic', useble: "True"},
+            {foption: 'Побритися налисо за 5000', soption: 'Побрити налисо друга за 5000', rarity: 'Common', useble: "True"},
+            {foption: 'Бути заядлим анімешником, передивитися кожне аніме в світі по 10 раз і бути все життя залежним', soption: 'Бути бомжом', rarity: 'Rare', useble: "True"},
+            {foption: 'Бути Іваномзоло2004', soption: 'Стати голубом і срати людям на голови', rarity: 'Common', useble: "True"},
+            {foption: 'Вміти ставати невидимим коли завгодно, і де завгодно', soption: 'Вміти телепортуватися куди завгодно ', rarity: 'Rare', useble: "True"},
+            {foption: 'Вміти управляти своїми снами та повністю їх пам\'ятати', soption: 'Получити 1,000,000$', rarity: 'Common', useble: "True"},
+            {foption: 'Стати аніме тянкою на 24 години', soption: 'Получити компанію Тесла', rarity: 'Legendary', useble: "True"},
+            {foption: 'Жити тільки 20 років, але в багатстві та щасті', soption: 'Прожити довге життя, але в бідності', rarity: 'Common', useble: "True"},
+            {foption: 'З\'їсти самий гострий перець в світі за стакан пива', soption: 'Зламати свій телефон', rarity: 'Rare', useble: "True"},
+            {foption: 'Грати все життя в Доту', soption: 'Грати все життя в Раст', rarity: 'Epic', useble: "True"},
+            {foption: 'Ніколи більше не хворіти', soption: 'Безкінечна шаурма', rarity: 'Rare', useble: "True"},
+            {foption: 'Допомогти бідній бабусі перейти через дорогу', soption: 'Получити круте ліжко з милими котиками', rarity: 'Common', useble: "True"},
+            {foption: 'Бути бідним, але попадеш в рай', soption: 'Бути багатим, але попадеш в ад', rarity: 'Common', useble: "True"},
+            {foption: 'Допомогти другу в важкій ситуації в його житті, тим самим позичивши йому 3,000', soption: 'Заказати великий сет ролів, і зїсти це все в одного', rarity: 'Epic', useble: "True"},
+            {foption: 'Кіт', soption: 'Собака', rarity: 'Common', useble: "True"},
+            {foption: 'Пoлучити новенький айфон', soption: 'Получити іграшку трансформер Оптімус Прайм', rarity: 'Epic', useble: "True"},
+            {foption: 'Прожити все життя тільки в селі, але бути самим уважаємим і багатим там', soption: 'Бути бомжом але жити в мегаполісі', rarity: 'Rare', useble: "True"},
+            {foption: 'Насрати в басейн і скупати там друга, сказавжи що це просто коричневий фарбник', soption: 'Відмовитися', rarity: 'Legendary', useble: "True"},
+            {foption: 'Сайт параша', soption: 'Сайт імба люта', rarity: 'Rare', unclickableDiv: 'True', useble: "True"},
+            {foption: 'Minecraft', soption: 'Terraria', rarity: 'Epic', useble: "True"},
+            {foption: 'Варіант 1', soption: 'Варіант 2', rarity: 'Rare', useble: "True"},
+            {foption: 'Відпочинок на морі', soption: 'Відпочинок в горах', rarity: 'Common', useble: "True"},
+            {foption: 'Піца', soption: 'Суші', rarity: 'Common', useble: "True"},
+            {foption: 'Солоне', soption: 'Солодке', rarity: 'Common', useble: "True"},
+            {foption: 'З\'їсти кілограм морозива за раз', soption: 'Слухати все життя грьобану інстасамку', rarity: 'Rare', useble: "True"},
+            {foption: 'Грати в шахи з голубом', soption: 'В карти з білкою', rarity: 'Epic', useble: "True"},
+            {foption: 'Бути героєм', soption: 'Бути злодієм', rarity: 'Common', useble: "True"},
+            {foption: 'Розмовляти тільки шепотом', soption: 'Тільки кричати', rarity: 'Rare', useble: "True"},
+            {foption: 'Бути завжди на п’ять хвилин пізно', soption: 'Завжди на п’ять хвилин рано', rarity: 'Common', useble: "True"},
+            {foption: 'Мати ніс як у Піноккіо', soption: 'Чи вуха як у Спока', rarity: 'Rare', useble: "True"},
+            {foption: 'Говорити на мові птахів', soption: 'Розуміти мову комах', rarity: 'Common', useble: "True"}
+        ];
+        function resetAllOptionsToTrue() {
+            options.forEach(function(option) {
+                option.useble = "True";
+            });
+        }
+
+        function filterUsableOptions() {
+            return options.filter(function(option) {
+            return option.useble === "True";
+        });
+        }
+        function getRandomOption() {
+            var usableOptions = filterUsableOptions();
+            
+            var randomIndex = Math.floor(Math.random() * usableOptions.length);
+            var selectedOption = usableOptions[randomIndex];
+
+            options[options.indexOf(selectedOption)].useble = "False";
+            return selectedOption;
+        }
+
+
+
+        document.getElementById("ch1").addEventListener("click", function() {
+            if (isEnabled1) {
+                isEnabled1 = false;
+                isEnabled2 = false;
+                ch1.style.backgroundColor = '#4feb34';
+                ch2.style.backgroundColor = '#a8a8a8';
+                ch1.style.cursor = 'default';
+                ch2.style.cursor = 'default';
+                
+                // Має виконуватися через дві секундни
+                setTimeout(function() {
+                    ch1.style.backgroundColor = '#4682B4';
+                    ch2.style.backgroundColor = '#FF6347';
+                    ch1.style.cursor = 'pointer';
+                    ch2.style.cursor = 'pointer';
+                    isEnabled1 = true;
+                    isEnabled2 = true;
+                    setDivValues();
+                }, 2000); // 2000 мілісекунд = 2 секунди
+            } else {
+                console.log("Змінна isEnabled дорівнює false");
+            }
+        });
+
+
+        document.getElementById("ch2").addEventListener("click", function() {
+            if (isEnabled2) {
+                isEnabled1 = false;
+                isEnabled2 = false;
+                ch2.style.backgroundColor = '#4feb34';
+                ch1.style.backgroundColor = '#a8a8a8';
+                ch2.style.cursor = 'default';
+                ch1.style.cursor = 'default';
+                
+                // Має виконуватися через дві секундни
+                setTimeout(function() {
+                    ch1.style.backgroundColor = '#4682B4';
+                    ch2.style.backgroundColor = '#FF6347';
+                    ch1.style.cursor = 'pointer';
+                    ch2.style.cursor = 'pointer';
+                    isEnabled1 = true;
+                    isEnabled2 = true;
+                    setDivValues();
+                }, 2000); // 2000 мілісекунд = 2 секунди
+            } else {
+                console.log("Змінна isEnabled дорівнює false");
+            }
+        });
+
+
+
+        function setDivValues() {
+            var randomOption = getRandomOption(); // Отримуємо випадковий елемент
+
+            var firstDiv = document.getElementById('firstDiv');
+            var secondDiv = document.getElementById('secondDiv');
+
+            firstDiv.textContent = randomOption.foption;
+            secondDiv.textContent = randomOption.soption;
+
+            if (randomOption.rarity === "Common") {
+                RarityDiv.style.backgroundColor = '#7c8079';
+                RarityDiv.title = 'Рідкість вибору: Common'
+            } else if (randomOption.rarity === "Rare") {
+                RarityDiv.style.backgroundColor = '#9ffa50';
+                RarityDiv.title = 'Рідкість вибору: Rare'
+            } else if (randomOption.rarity === "Epic") {
+                RarityDiv.style.backgroundColor = '#9c00bf';
+                RarityDiv.title = 'Рідкість вибору: Epic'
+            } else if (randomOption.rarity === "Legendary") {
+                RarityDiv.style.backgroundColor = '#ffe600';
+                RarityDiv.title = 'Рідкість вибору: Legendary'
+            }
+
+            if (randomOption.unclickableDiv === "True"){
+                isEnabled1 = false;
+                ch1.style.cursor = 'default';
+            }
+        }   
+
+        setDivValues();
+    </script>
+</body>
+</html>
